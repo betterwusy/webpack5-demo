@@ -10,4 +10,4 @@ import "./styles/iconfont.css";
 // console.log(a);
 
 console.log(add(1, 3));
-console.log(sum(1, 2, 3, 4));
+console.log(sum(1, 2, 3, 4, 5));

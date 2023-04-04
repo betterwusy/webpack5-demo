@@ -1,6 +1,6 @@
 const path = require("path");
 const ESLintWebpackPlugin = require("eslint-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -84,7 +84,19 @@ module.exports = {
      * 可以将模板 html 文件移动到输出目录中，并自动引用 bundle.js 文件
      */
     new HtmlWebpackPlugin({
-      template: 'public/index.html',
-    })
+      template: "public/index.html",
+    }),
   ],
+
+  /**
+   *  配置开发服务器
+   *  指定主机名和端口号，在开发本地启动一个 web 服务器，
+   *  并在资源文件发生变化时自动刷新重新构建输出文件
+   *  （并不会生成 dist 目录，因为输出文件是在内存中）
+   */
+  devServer: {
+    host: "localhost",
+    port: "3000",
+    open: true,
+  },
 };
