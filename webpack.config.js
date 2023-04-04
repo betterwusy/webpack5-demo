@@ -55,10 +55,10 @@ module.exports = {
       },
       // 处理字体资源
       {
-        test: /\.(ttf|woff2?)$/,
+        test: /\.(ttf|woff2?|mp3|mp4|avi)$/,
         type: "asset/resource",
         generator: {
-          filename: "static/fonts/[hash:8][ext][query]",
+          filename: "static/media/[hash:8][ext][query]",
         },
       }
     ],
