@@ -1,5 +1,5 @@
 const path = require("path");
-
+const ESLintWebpackPlugin = require('eslint-webpack-plugin')
 module.exports = {
   mode: "development",
   // clean: true,
@@ -63,5 +63,11 @@ module.exports = {
       }
     ],
   },
-  plugins: [],
+  plugins: [
+    // 配置 ESLint 插件
+    new ESLintWebpackPlugin({
+      // context 指明对项目下的什么文件进行 eslint 检查
+      context: path.resolve(__dirname, 'src'),
+    }),
+  ],
 };
