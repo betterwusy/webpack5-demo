@@ -7,18 +7,18 @@
 .box4 {
   width: 400px;
   height: 200px;
-  background: url('../../images/es.png');
+  background: url('../../assets/images/es.png');
   background-size: cover;
 }
 .box5 {
   width: 400px;
   height: 200px;
-  background: url('../../images/ts.jpeg');
+  background: url('../../assets/images/ts.jpeg');
   background-size: cover;
 }
 .box6 {
   width: 400px;
   height: 200px;
-  background: url('../../images/vue.webp');
+  background: url('../../assets/images/vue.webp');
   background-size: cover;
 }

@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3996957 */
+  src: url('../assets/fonts/iconfont.woff2?t=1680611008773') format('woff2'),
+       url('../assets/fonts/iconfont.woff?t=1680611008773') format('woff'),
+       url('../assets/fonts/iconfont.ttf?t=1680611008773') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-zhaopinqiuzhi:before {
+  content: "\ffb6";
+}
+
+.icon-ershoujiaoyi:before {
+  content: "\ffb7";
+}
+
+.icon-shangpuchuzu:before {
+  content: "\ffb8";
+}
+
+.icon-fangwuchuzu:before {
+  content: "\ffb9";
+}
+

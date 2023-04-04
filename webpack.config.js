@@ -53,6 +53,14 @@ module.exports = {
           filename: 'static/images/[hash:8][ext][query]'
         },
       },
+      // 处理字体资源
+      {
+        test: /\.(ttf|woff2?)$/,
+        type: "asset/resource",
+        generator: {
+          filename: "static/fonts/[hash:8][ext][query]",
+        },
+      }
     ],
   },
   plugins: [],
