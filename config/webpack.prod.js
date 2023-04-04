@@ -1,6 +1,7 @@
 const path = require("path");
 const ESLintWebpackPlugin = require("eslint-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "production",
@@ -20,15 +21,15 @@ module.exports = {
        */
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.less$/,
-        use: ["style-loader", "css-loader", "less-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"],
       },
       {
         test: /\.s(a|c)ss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
 
       /**
@@ -85,6 +86,16 @@ module.exports = {
      */
     new HtmlWebpackPlugin({
       template: "public/index.html",
+    }),
+
+    /**
+     * 用 style-loader 在 js 文件中处理 css 文件会将样式动态注入到 html 的 style 标签中
+     * 这样子会导致先解析完 html 再注入 style 标签，导致样式闪烁
+     * 使用 mini-css-extract-plugin 插件，可以将 css 源文件输出为单独的 css 文件，
+     * 即浏览器引擎是先解析 css 文件再解析 html 代码
+     */
+    new MiniCssExtractPlugin({
+      filename: "css/[hash:8].css",
     }),
   ],
 };

@@ -1,6 +1,7 @@
 const path = require("path");
 const ESLintWebpackPlugin = require("eslint-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
@@ -20,15 +21,15 @@ module.exports = {
        */
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.less$/,
-        use: ["style-loader", "css-loader", "less-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"],
       },
       {
         test: /\.s(a|c)ss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
 
       /**
@@ -85,6 +86,10 @@ module.exports = {
      */
     new HtmlWebpackPlugin({
       template: "public/index.html",
+    }),
+
+    new MiniCssExtractPlugin({
+      filename: "css/[hash:8].css",
     }),
   ],
 
