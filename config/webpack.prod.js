@@ -2,6 +2,7 @@ const path = require("path");
 const ESLintWebpackPlugin = require("eslint-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 function getStyleLoaders(preProcessor) {
   return [
@@ -113,5 +114,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "css/[hash:8].css",
     }),
+
+    new CssMinimizerPlugin(),
   ],
 };
