@@ -7,11 +7,11 @@ module.exports = {
   // clean: true,
   entry: "./src/main.js",
   output: {
-    // path 指定的是输出文件的目录
-    path: path.resolve(__dirname, "dist"),
+    // path 指定的是输出文件的目录，开发环境没有输出文件
+    path: undefined,
     // filename 指定的是 js 文件的输出目录（这两者有差别！）
     filename: "./js/bundle.js",
-    clean: true,
+    // clean: true,
   },
   module: {
     rules: [
@@ -76,7 +76,7 @@ module.exports = {
     // 配置 ESLint 插件
     new ESLintWebpackPlugin({
       // context 指明对项目下的什么文件进行 eslint 检查
-      context: path.resolve(__dirname, "src"),
+      context: path.resolve(__dirname, "../src"),
     }),
 
     /**
