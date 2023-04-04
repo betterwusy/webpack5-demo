@@ -5,8 +5,10 @@ module.exports = {
   // clean: true,
   entry: "./src/main.js",
   output: {
+    // path 指定的是输出文件的目录
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    // filename 指定的是 js 文件的输出目录（这两者有差别！）
+    filename: "./js/bundle.js",
     clean: true,
   },
   module: {
@@ -45,7 +47,11 @@ module.exports = {
           dataUrlCondition: {
             maxSize: 10 * 1024
           }
-        }
+        },
+        // generator 对象配置生成的文件路径和名称
+        generator: {
+          filename: 'static/images/[hash:8][ext][query]'
+        },
       },
     ],
   },
