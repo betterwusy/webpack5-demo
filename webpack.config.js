@@ -1,5 +1,7 @@
 const path = require("path");
 const ESLintWebpackPlugin = require("eslint-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   mode: "development",
   // clean: true,
@@ -76,5 +78,13 @@ module.exports = {
       // context 指明对项目下的什么文件进行 eslint 检查
       context: path.resolve(__dirname, "src"),
     }),
+
+    /**
+     * 使用 html-webpack-plugin 插件,
+     * 可以将模板 html 文件移动到输出目录中，并自动引用 bundle.js 文件
+     */
+    new HtmlWebpackPlugin({
+      template: 'public/index.html',
+    })
   ],
 };
