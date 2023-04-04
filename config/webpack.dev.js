@@ -3,6 +3,12 @@ const ESLintWebpackPlugin = require("eslint-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+function getStyleLoaders(preProcessor) {
+  return [MiniCssExtractPlugin.loader, "css-loader", preProcessor].filter(
+    Boolean
+  );
+}
+
 module.exports = {
   mode: "development",
   // clean: true,
@@ -21,15 +27,15 @@ module.exports = {
        */
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: getStyleLoaders(),
       },
       {
         test: /\.less$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"],
+        use: getStyleLoaders("less-loader"),
       },
       {
         test: /\.s(a|c)ss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: getStyleLoaders("sass-loader"),
       },
 
       /**

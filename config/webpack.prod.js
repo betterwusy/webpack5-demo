@@ -3,6 +3,22 @@ const ESLintWebpackPlugin = require("eslint-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+function getStyleLoaders(preProcessor) {
+  return [
+    MiniCssExtractPlugin.loader,
+    "css-loader",
+    {
+      loader: "postcss-loader",
+      options: {
+        postcssOptions: {
+          plugins: ["postcss-preset-env"],
+        },
+      },
+    },
+    preProcessor,
+  ].filter(Boolean);
+}
+
 module.exports = {
   mode: "production",
   // clean: true,
@@ -21,51 +37,15 @@ module.exports = {
        */
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          // 多加一个 postcss-loader
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: ["postcss-preset-env"],
-              },
-            },
-          },
-        ],
+        use: getStyleLoaders(),
       },
       {
         test: /\.less$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: ["postcss-preset-env"],
-              },
-            },
-          },
-          "less-loader",
-        ],
+        use: getStyleLoaders("less-loader"),
       },
       {
         test: /\.s(a|c)ss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: ["postcss-preset-env"],
-              },
-            },
-          },
-          "sass-loader",
-        ],
+        use: getStyleLoaders("sass-loader"),
       },
 
       /**
