@@ -1,5 +1,5 @@
 const path = require("path");
-const ESLintWebpackPlugin = require('eslint-webpack-plugin')
+const ESLintWebpackPlugin = require("eslint-webpack-plugin");
 module.exports = {
   mode: "development",
   // clean: true,
@@ -45,12 +45,12 @@ module.exports = {
         type: "asset",
         parser: {
           dataUrlCondition: {
-            maxSize: 10 * 1024
-          }
+            maxSize: 10 * 1024,
+          },
         },
         // generator 对象配置生成的文件路径和名称
         generator: {
-          filename: 'static/images/[hash:8][ext][query]'
+          filename: "static/images/[hash:8][ext][query]",
         },
       },
       // 处理字体资源
@@ -60,14 +60,21 @@ module.exports = {
         generator: {
           filename: "static/media/[hash:8][ext][query]",
         },
-      }
+      },
+
+      // 对 js 文件使用 babel 进行处理
+      {
+        test: /\.js$/,
+        exclude: /node_modules/, // 排除node_modules代码不编译
+        loader: "babel-loader",
+      },
     ],
   },
   plugins: [
     // 配置 ESLint 插件
     new ESLintWebpackPlugin({
       // context 指明对项目下的什么文件进行 eslint 检查
-      context: path.resolve(__dirname, 'src'),
+      context: path.resolve(__dirname, "src"),
     }),
   ],
 };

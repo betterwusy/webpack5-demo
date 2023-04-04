@@ -23,7 +23,7 @@ module.exports = {
   // 具体检查规则 0/1/2 或者 "off"/"warn"/"error"
   rules: {
     "no-var": 2,
-    semi: "error", // 必须使用分号
+    semi: 0, // 必须使用分号
     "array-callback-return": "warn", // 强制数组方法的回调函数中有 return 语句，否则警告
     "default-case": [
       "warn", // 要求 switch 语句中有 default 分支，否则警告
