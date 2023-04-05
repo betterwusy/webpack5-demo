@@ -117,4 +117,6 @@ module.exports = {
 
     new CssMinimizerPlugin(),
   ],
+
+  devtool: 'source-map',
 };
