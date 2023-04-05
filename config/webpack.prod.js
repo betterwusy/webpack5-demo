@@ -4,6 +4,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
+const os = require("os");
+const threads = os.cpus().length;
+
+const TerserWebpackPlugn = require("terser-webpack-plugin");
+
 function getStyleLoaders(preProcessor) {
   return [
     MiniCssExtractPlugin.loader,
@@ -89,11 +94,21 @@ module.exports = {
             test: /\.js$/,
             // exclude: /node_modules/, // 排除node_modules代码不编译
             include: path.resolve(__dirname, "../src"),
-            loader: "babel-loader",
-            options: {
-              cacheDirectory: true, // 开启 babel 缓存
-              cacheCompression: false, // 关闭缓存文件压缩
-            },
+            use: [
+              {
+                loader: "thread-loader",
+                options: {
+                  works: threads,
+                },
+              },
+              {
+                loader: "babel-loader",
+                options: {
+                  cacheDirectory: true, // 开启 babel 缓存
+                  cacheCompression: false, // 关闭缓存文件压缩
+                },
+              },
+            ],
           },
         ],
       },
@@ -110,6 +125,7 @@ module.exports = {
         __dirname,
         "../node_modules/.cache/eslint-cache"
       ),
+      threads, // 对 eslint 开启多线程
     }),
 
     /**
@@ -129,9 +145,18 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "css/[hash:8].css",
     }),
-
-    new CssMinimizerPlugin(),
   ],
+
+  optimization: {
+    // 压缩的操作
+    minimizer: [
+      new CssMinimizerPlugin(),
+
+      new TerserWebpackPlugn({
+        parallel: threads, // 对 terser 开启多线程压缩 js 代码
+      }),
+    ],
+  },
 
   devtool: "source-map",
 };
