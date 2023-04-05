@@ -87,7 +87,8 @@ module.exports = {
           // 对 js 文件使用 babel 进行处理
           {
             test: /\.js$/,
-            exclude: /node_modules/, // 排除node_modules代码不编译
+            // exclude: /node_modules/, // 排除node_modules代码不编译
+            include: path.resolve(__dirname, '../src'),
             loader: "babel-loader",
           },
         ],
@@ -99,6 +100,7 @@ module.exports = {
     new ESLintWebpackPlugin({
       // context 指明对项目下的什么文件进行 eslint 检查
       context: path.resolve(__dirname, "../src"),
+      exclude: "node_modules",
     }),
 
     /**
