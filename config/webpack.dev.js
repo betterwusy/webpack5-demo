@@ -78,6 +78,8 @@ module.exports = {
             test: /\.js$/,
             exclude: /node_modules/, // 排除node_modules代码不编译
             loader: "babel-loader",
+            cacheDirectory: true, // 开启 babel 缓存
+            cacheCompression: false, // 关闭缓存文件压缩
           },
         ],
       },
@@ -88,6 +90,11 @@ module.exports = {
     new ESLintWebpackPlugin({
       // context 指明对项目下的什么文件进行 eslint 检查
       context: path.resolve(__dirname, "../src"),
+      cache: true,
+      cacheLocation: path.resolve(
+        __dirname,
+        "../node_modules/.cache/eslint-cache"
+      ),
     }),
 
     /**
