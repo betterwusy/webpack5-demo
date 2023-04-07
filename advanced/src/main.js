@@ -10,8 +10,16 @@ document.getElementById("btn").onclick = function () {
   // import(/* webpackChunkName: "lodash" */ "lodash").then((res) => {
   //   console.log(res);
   // });
-
-  import(/* webpackChunkName: "math" */ "./js/math").then(({ add }) => {
-    console.log(add(1, 3));
-  });
 };
+
+// import "core-js/es/promise";
+/**
+ *  直接整个引入 core-js
+ *  让 babel 自动按需引入 core-js 的 polyfill 代码
+ */
+// const promise = Promise.resolve();
+// promise.then(() => {
+//   console.log("promise resolve");
+// });
+
+console.log([1, 3, 4, 5, 10].includes(2));

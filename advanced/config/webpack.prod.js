@@ -21,6 +21,15 @@ module.exports = {
     assetModuleFilename: "", // 定义资源模块处理后的输出文件名
     clean: true,
   },
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: "babel-loader",
+      },
+    ],
+  },
   plugins: [
     new htmlWebpackPlugin({
       template: path.resolve(__dirname, "../public/index.html"),
@@ -94,7 +103,7 @@ module.exports = {
      *  使用 runtimeChunk 配置，使 main.js 文件通过一个 runtime 文件来引用其他文件
      */
     runtimeChunk: {
-      name: (entry) => `runtime~${entry.name}`
-    }
+      name: (entry) => `runtime~${entry.name}`,
+    },
   },
 };
