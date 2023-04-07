@@ -16,8 +16,8 @@ module.exports = {
   entry: "./src/main.js",
   output: {
     path: path.resolve(__dirname, "../dist"),
-    filename: "js/[name].js",
-    chunkFilename: "js/[name].chunk.js", // 动态导入文件的输出文件名
+    filename: "js/[name].[contenthash:8].js",
+    chunkFilename: "js/[name].[contenthash:8].chunk.js", // 动态导入文件的输出文件名
     assetModuleFilename: "", // 定义资源模块处理后的输出文件名
     clean: true,
   },
@@ -31,13 +31,13 @@ module.exports = {
      *  @vue/preload-webpack-plugin 插件
      *  使资源增加提示 preload/prefetch，
      */
-    new PreloadWebpackPlugin(),
+    // new PreloadWebpackPlugin(),
 
     // 动态引入的 chunk 可能也有 css 文件生成,
     // 因此这里也要配 chunk 对应的 css 输出文件名称
     new miniCssExtractPlugin({
-      filename: "style/[name].css",
-      chunkFilename: "style/[name].chunk.css",
+      filename: "style/[name].[contenthash:8].css",
+      chunkFilename: "style/[name].[contenthash:8].chunk.css",
     }),
   ],
 
@@ -87,5 +87,14 @@ module.exports = {
         },
       },
     },
+
+    /**
+     *  如果 chunk 文件内容变了所以文件名中的 [contenthash] 变了
+     *  因为 main.js 内容中引用了这个 chunk 文件，同样导致 main 文件名中的 [contenthash] 也变了
+     *  使用 runtimeChunk 配置，使 main.js 文件通过一个 runtime 文件来引用其他文件
+     */
+    runtimeChunk: {
+      name: (entry) => `runtime~${entry.name}`
+    }
   },
 };

@@ -5,9 +5,13 @@ console.log("hello main.js");
 document.getElementById("btn").onclick = function () {
   /**
    *  code split:
-   *  3. 通过 import 语法动态导入，只有执行的时候才导入这个 chunk 
+   *  3. 通过 import 语法动态导入，只有执行的时候才导入这个 chunk
    */
-  import(/* webpackChunkName: "lodash" */ "lodash").then((res) => {
-    console.log(res);
+  // import(/* webpackChunkName: "lodash" */ "lodash").then((res) => {
+  //   console.log(res);
+  // });
+
+  import(/* webpackChunkName: "math" */ "./js/math").then(({ add }) => {
+    console.log(add(1, 3));
   });
 };
