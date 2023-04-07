@@ -1,23 +1,34 @@
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
-
+const miniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   mode: "production",
   /** code split：
    *  1. 配置多入口多输出，对 js 代码进行拆分
    */
-  entry: {
-    main: "./src/main.js",
-    app: "./src/app.js",
-  },
+  // entry: {
+  //   main: "./src/main.js",
+  //   app: "./src/app.js",
+  // },
+
+  entry: "./src/main.js",
   output: {
     path: path.resolve(__dirname, "../dist"),
-    filename: "[name].js",
+    filename: "js/[name].js",
+    chunkFilename: "js/[name].chunk.js", // 动态导入文件的输出文件名
+    assetModuleFilename: '',    // 定义资源模块处理后的输出文件名
     clean: true,
   },
   plugins: [
     new htmlWebpackPlugin({
       template: path.resolve(__dirname, "../public/index.html"),
+    }),
+
+    // 动态引入的 chunk 可能也有 css 文件生成,
+    // 因此这里也要配 chunk 对应的 css 输出文件名称
+    new miniCssExtractPlugin({
+      filename: "style/[name].css",
+      chunkFilename: "style/[name].chunk.css",
     }),
   ],
 
@@ -49,7 +60,7 @@ module.exports = {
       //     reuseExistingChunk: true,
       //   },
       // },
-      
+
       // 修改配置
       cacheGroups: {
         // 组，哪些模块要打包到一个组
