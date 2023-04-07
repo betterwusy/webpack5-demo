@@ -1,6 +1,8 @@
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
+const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
+
 module.exports = {
   mode: "production",
   /** code split：
@@ -16,13 +18,20 @@ module.exports = {
     path: path.resolve(__dirname, "../dist"),
     filename: "js/[name].js",
     chunkFilename: "js/[name].chunk.js", // 动态导入文件的输出文件名
-    assetModuleFilename: '',    // 定义资源模块处理后的输出文件名
+    assetModuleFilename: "", // 定义资源模块处理后的输出文件名
     clean: true,
   },
   plugins: [
     new htmlWebpackPlugin({
       template: path.resolve(__dirname, "../public/index.html"),
     }),
+
+    /**
+     *  对 chunk 文件使用
+     *  @vue/preload-webpack-plugin 插件
+     *  使资源增加提示 preload/prefetch，
+     */
+    new PreloadWebpackPlugin(),
 
     // 动态引入的 chunk 可能也有 css 文件生成,
     // 因此这里也要配 chunk 对应的 css 输出文件名称
